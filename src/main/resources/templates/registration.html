@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div>
+    <h2>Registration</h2>
+    <div>
+            <!--/*@thymesVar id="user" type="org.kolimaro.springsecuritythymeleaf.model.User"*/-->
+            <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Username">
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label for="password">Password confirm</label>
+                        <input type="password" th:field="*{passwordConfirm}" class="form-control" id="passwordConfirm" placeholder="Password confirm">
+                        <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input type="submit" value="Registration">
+                    </div>
+            </form>
+    </div>
+    <h4><a href="/">Главная</a></h4>
+</div>
+</body>
+</html>
