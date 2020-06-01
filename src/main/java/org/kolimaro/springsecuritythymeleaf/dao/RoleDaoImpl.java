@@ -1,6 +1,7 @@
 package org.kolimaro.springsecuritythymeleaf.dao;
 
 import org.kolimaro.springsecuritythymeleaf.model.Role;
+import org.kolimaro.springsecuritythymeleaf.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,6 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     @Transactional
     public Role findById(Long id) {
-        return (Role) entityManager.createQuery("select r from Role r where r.id = :role_id").setParameter("role_id", id).getSingleResult();
+        return entityManager.find(Role.class, id);
     }
 }

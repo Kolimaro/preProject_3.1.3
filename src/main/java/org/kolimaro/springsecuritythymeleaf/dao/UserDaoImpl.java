@@ -49,7 +49,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public User findById(Long userId) {
-        return (User) entityManager.createQuery("select u from User u where u.id = :user_id").setParameter("user_id", userId).getSingleResult();
+//        return (User) entityManager.createQuery("select u from User u where u.id = :user_id").setParameter("user_id", userId).getSingleResult();
+        return entityManager.find(User.class, userId);
     }
 
     @Override

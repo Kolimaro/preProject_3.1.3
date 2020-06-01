@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "t_user_t_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
