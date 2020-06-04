@@ -8,7 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -39,14 +42,11 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String userList(Model model) {
+    public String userList(Model model, User user, Authentication authentication) {
+        User admin = (User) authentication.getPrincipal();
+        model.addAttribute("admin", admin);
         model.addAttribute("users", userService.allUsers());
         return "admin";
-    }
-
-    @GetMapping("/admin/addUser")
-    public String addUser(User user) {
-        return "addUser";
     }
 
     @PostMapping("/admin/addUser")
@@ -54,14 +54,6 @@ public class UserController {
         userService.setRoles(user, role);
         userService.saveUser(user);
         return "redirect:/admin";
-    }
-
-    @GetMapping("/admin/edit/{id}")
-    public String updateUser(@PathVariable("id") Long id, Model model) {
-        User user = new User();
-        user.setId(id);
-        model.addAttribute("user", user);
-        return "update";
     }
 
     @PostMapping("/admin/update/{id}")

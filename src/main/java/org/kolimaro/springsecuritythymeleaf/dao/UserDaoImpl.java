@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -18,13 +19,12 @@ public class UserDaoImpl implements UserDao {
 
     private EntityManager entityManager;
 
-    @Autowired
+    @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    @Transactional
     public User findUserByUsername(String username) {
         try {
             return (User) entityManager.createQuery("select u from User u where u.username = :username").setParameter("username", username).getSingleResult();
@@ -35,7 +35,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public List<User> findAll() {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
@@ -47,7 +46,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public User findById(Long userId) {
         return entityManager.find(User.class, userId);
     }
@@ -61,12 +59,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public void update(User user) {
-        User userFromDb = entityManager.find(User.class, user.getId());
-        userFromDb.setPassword(user.getPassword());
-        userFromDb.setRoles(user.getRoles());
-        userFromDb.setUsername(user.getUsername());
-        entityManager.flush();
-        entityManager.refresh(userFromDb);
+        entityManager.merge(user);
     }
 
 }

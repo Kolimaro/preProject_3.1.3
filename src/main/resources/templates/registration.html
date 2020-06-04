@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div>
+<div class="container">
     <h2>Registration</h2>
     <div>
-            <!--/*@thymesVar id="user" type="org.kolimaro.springsecuritythymeleaf.model.User"*/-->
-            <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Username">
-                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
-                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <label for="password">Password confirm</label>
-                        <input type="password" th:field="*{passwordConfirm}" class="form-control" id="passwordConfirm" placeholder="Password confirm">
-                        <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <input type="submit" value="Registration">
-                    </div>
-            </form>
+        <!--/*@thymesVar id="user" type="org.kolimaro.springsecuritythymeleaf.model.User"*/-->
+        <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+            <div>
+                <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Username">
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="password" th:field="*{passwordConfirm}" class="form-control" id="passwordConfirm" placeholder="Password confirm">
+                <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="First name">
+            </div>
+            <div>
+                <input type="text" th:field="*{lastname}" class="form-control" id="lastname" placeholder="Last name">
+            </div>
+            <div>
+                <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Age">
+            </div>
+            <div>
+                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div>
+                <input type="submit" class="btn btn-info btn-sm" value="Sing up">
+            </div>
+        </form>
     </div>
     <h4><a href="/">Главная</a></h4>
 </div>

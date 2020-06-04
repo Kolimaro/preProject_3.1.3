@@ -1,38 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <meta charset="UTF-8">
     <title>User</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<div th:switch="${user}" class="container my-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="text-white font-weight-bold" th:utext="${user.email}"/><span class="text-white"> with roles: </span><span
+                    class="text-white font-weight-bold" th:utext="${user.roles}"/>
+            </li>
+        </ul>
+        <a class="text-secondary" href="/logout">Logout</a>
+    </div>
+</nav>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
-            <h2 th:case="null">No users yet!</h2>
-            <div th:case="*">
-                <h2 class="my-5">User</h2>
-                <table class="table table-striped table-responsive-md">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.password}"></td>
-                        <td th:text="${user.roles}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="col-sm-1">
+            <div class="container">
+                <div class="btn-group-vertical">
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a class="text-light btn btn-primary btn-lg" href="/admin">Admin</a>
+                    </div>
+                    <a class="text-light btn btn-primary btn-lg" href="/user">User</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-11">
+            <h1 class="my-2">User information-page</h1>
+            <div th:switch="${user}">
+                <div class="container-fluid">
+                    <h2 th:case="null">No users yet!</h2>
+                    <div th:case="*">
+                        <h4 class="mb-1 mt-5">User</h4>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.firstname}"></td>
+                            <td th:text="${user.lastname}"></td>
+                            <td th:text="${user.age}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.roles}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <h4><a href="/">Главная</a></h4>
-    <h4><a href="/logout">Выйти</a></h4>
 </div>
 </body>
 </html>
