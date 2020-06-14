@@ -1,11 +1,13 @@
 package org.kolimaro.springsecuritythymeleaf.dao;
 
 import org.kolimaro.springsecuritythymeleaf.model.Role;
+import org.kolimaro.springsecuritythymeleaf.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * @author Pavel Tokarev, 31.05.2020

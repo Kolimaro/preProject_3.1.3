@@ -59,24 +59,26 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public void setRoles(User user, String userRole) {
-        Set<Role> roles = new HashSet<>();
-        if (userRole.toUpperCase().contains("ADMIN")) {
-            roles.add(roleDao.findById(2L));
-        }
-        if (userRole.toUpperCase().contains("USER")) {
-            roles.add(roleDao.findById(1L));
-        }
-        user.setRoles(roles);
+    public Role getRoleById(Long id) {
+        return roleDao.findById(id);
     }
 
-    public void updateUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.update(user);
+    public boolean updateUser(User user, Long userId) {
+        if (userDao.findById(userId) != null) {
+            user.setId(userId);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userDao.update(user);
+            return true;
+        }
+        return false;
     }
 
-    public void deleteUser(Long userId) {
+    public boolean deleteUser(Long userId) {
         User user = userDao.findById(userId);
-        userDao.delete(user);
+        if (user != null) {
+            userDao.delete(user);
+            return true;
+        }
+        return false;
     }
 }

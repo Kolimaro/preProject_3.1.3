@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="js/user.js"></script>
 
 </head>
 <body>
@@ -23,24 +24,21 @@
         <a class="text-secondary" href="/logout">Logout</a>
     </div>
 </nav>
+<nav class="col-sm-2 bg-white ml-0 pl-0 pr-0 pt-0 mt-4 mr-3 min-vh-100">
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a class="btn-link nav-item nav-link font-weight-light mt-0" href="/admin">Admin</a>
+    </div>
+    <a class=" btn-link btn-primary nav-item active nav-link" href="/user">User</a>
+</nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-1">
-            <div class="container">
-                <div class="btn-group-vertical">
-                    <div sec:authorize="hasAuthority('ADMIN')">
-                        <a class="text-light btn btn-primary btn-lg" href="/admin">Admin</a>
-                    </div>
-                    <a class="text-light btn btn-primary btn-lg" href="/user">User</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-11">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
             <h1 class="my-2">User information-page</h1>
-            <div th:switch="${user}">
+<!--            <div th:switch="${user}">-->
                 <div class="container-fluid">
-                    <h2 th:case="null">No users yet!</h2>
-                    <div th:case="*">
+<!--                    <h2 th:case="null">No users yet!</h2>-->
+<!--                    <div th:case="*">-->
                         <h4 class="mb-1 mt-5">User</h4>
                         <table class="table table-hover">
                             <thead>
@@ -54,20 +52,9 @@
                                 <th>Role</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <td th:text="${user.id}"></td>
-                            <td th:text="${user.username}"></td>
-                            <td th:text="${user.firstname}"></td>
-                            <td th:text="${user.lastname}"></td>
-                            <td th:text="${user.age}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.roles}"></td>
-                            </tr>
-                            </tbody>
+                            <tbody id="usr"></tbody>
                         </table>
-                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

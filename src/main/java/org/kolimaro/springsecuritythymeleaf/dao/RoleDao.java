@@ -3,6 +3,7 @@ package org.kolimaro.springsecuritythymeleaf.dao;
 import org.kolimaro.springsecuritythymeleaf.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,4 +13,5 @@ import java.util.Map;
 public interface RoleDao {
 
     Role findById(Long id);
+
 }
