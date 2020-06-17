@@ -1,6 +1,5 @@
 package org.kolimaro.springsecuritythymeleaf.controller;
 
-import org.kolimaro.springsecuritythymeleaf.model.Role;
 import org.kolimaro.springsecuritythymeleaf.model.User;
 import org.kolimaro.springsecuritythymeleaf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,20 +40,6 @@ public class UserRestController {
         User user = (User) authentication.getPrincipal();
         return user != null
                 ? new ResponseEntity<>(new ArrayList<>(Collections.singletonList(user)), HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/role")
-    public ResponseEntity<List<Role>> getRole(@RequestParam(name = "jsonRoles") String jsonRoles) {
-        final List<Role> roles = new ArrayList<>();
-        if (jsonRoles.contains("user")) {
-            roles.add(userService.getRoleById(1L));
-        }
-        if (jsonRoles.contains("admin")) {
-            roles.add(userService.getRoleById(2L));
-        }
-        return !roles.isEmpty()
-                ? new ResponseEntity<>(roles, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
